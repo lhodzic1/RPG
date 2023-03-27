@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using RPG.Dtos.Character;
+using RPG.Dtos.Fight;
 using RPG.Dtos.Skills;
 using RPG.Dtos.Weapon;
 
@@ -14,6 +15,7 @@ namespace RPG
             CreateMap<UpdateCharacterDto, Character>();
             CreateMap<Weapon, GetWeaponDto>();
             CreateMap<Skill, GetSkillDto>();
+            CreateMap<Character, HighScroeDto>();
         }
     }
 }
