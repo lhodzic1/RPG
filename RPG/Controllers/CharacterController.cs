@@ -12,15 +12,15 @@ namespace RPG.Controllers
     public class CharacterController : ControllerBase
     {
         private readonly ICharacterService _characterService;
-        public CharacterController(ICharacterService characterService) {
+        public CharacterController(ICharacterService characterService)
+        {
             _characterService = characterService;
         }
 
         [HttpGet("GetAll")]
         public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> Get()
         {
-            int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
-            return Ok(await _characterService.GetAllCharacters(userId));
+            return Ok(await _characterService.GetAllCharacters());
         }
 
         [HttpGet("{id}")]
@@ -39,12 +39,13 @@ namespace RPG.Controllers
         public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> UpdateCharacter(Dtos.Character.UpdateCharacterDto updatedCharacter)
         {
             var response = await _characterService.UpdateCharacter(updatedCharacter);
-            
-            if(response.Data == null) { 
-                
+
+            if (response.Data == null)
+            {
+
                 return NotFound(response);
             }
-                
+
             return Ok(response);
         }
 
@@ -61,5 +62,11 @@ namespace RPG.Controllers
 
             return Ok(response);
         }
-    } 
+
+        [HttpPost("Skill")]
+        public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> AddCharacterSkill(AddCharacterSkillDto newCharacterSkill)
+        {
+            return Ok(await _characterService.AddCharacterSkill(newCharacterSkill));
+        }
+    }
 }
